@@ -8,3 +8,10 @@ AssumeRoleWithSAML: Federation through an Enterprise Identity Provider compatibl
 GetFederationToken: Federation through a Custom Identity broker
 
 GetSessionToken: Temporary credentials for users in Untrusted environments
+
+What best describes an IAM role
+* A role is something that another entity can "assume."
+* A role is something that another entity can "assume,"
+* where the entity is another AWS resource like an EC2 instance.
+* AWS resources cannot have permission polices directly applied to them,
+* so to access another resource they must "assume" a role and gain permissions assigned to the role.
