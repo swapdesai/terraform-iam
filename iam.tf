@@ -139,6 +139,7 @@ EOF
 
 resource "aws_iam_role" "ec2_s3_fullaccess" {
   name = "EC2-S3-Role"
+  description = "IAM Role for EC2 to access S3"
 
   assume_role_policy = <<EOF
 {
