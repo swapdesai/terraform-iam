@@ -1,0 +1,10 @@
+STS API Calls
+AssumeRole: Cross-Account Delegation and Federation through a Custom Identity broker
+
+AssumeRoleWithWebIdentity: Federation through a Web-based Identity provider
+
+AssumeRoleWithSAML: Federation through an Enterprise Identity Provider compatible with SAML 2.0
+
+GetFederationToken: Federation through a Custom Identity broker
+
+GetSessionToken: Temporary credentials for users in Untrusted environments
