@@ -21,7 +21,8 @@ resource "aws_iam_group" "dev" {
 }
 
 resource "aws_iam_group_membership" "dev_membership" {
-  name = "Dev Membership"
+
+  name = "DevGroupMembership"
 
   users = [
     "${aws_iam_user.matt.name}",
@@ -30,30 +31,32 @@ resource "aws_iam_group_membership" "dev_membership" {
   ]
 
   group = "${aws_iam_group.dev.name}"
+
 }
 
 /* Individual user policy
 resource "aws_iam_user_policy" "matt_s3_fullaccess" {
-  name = "AmazonS3FullAccess"
+  name = "S3FullAccessUserPolicy"
   user = "${aws_iam_user.matt.name}"
 
   policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
     {
-      "Effect": "Allow",
-      "Action": "s3:*",
-      "Resource": "*"
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": "s3:*",
+          "Resource": "*"
+        }
+      ]
     }
-  ]
-}
-EOF
+    EOF
+
 }
 */
 
 resource "aws_iam_group_policy" "dev_s3_fullaccess" {
-  name = "AmazonS3FullAccess"
+  name = "S3FullAccessGroupPolicy"
   group = "${aws_iam_group.dev.id}"
 
   /* S3 Full Access policy */
@@ -69,10 +72,11 @@ resource "aws_iam_group_policy" "dev_s3_fullaccess" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_group_policy" "dev_ec2_fullaccess" {
-  name = "AmazonEC2FullAccess"
+  name = "EC2FullAccessGroupPolicy"
   group = "${aws_iam_group.dev.id}"
 
   /* EC2 Full Access policy */
@@ -103,10 +107,11 @@ resource "aws_iam_group_policy" "dev_ec2_fullaccess" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_group_policy" "dev_rds_fullaccess" {
-  name = "AmazonRDSFullAccess"
+  name = "RDSFullAccessGroupPolicy"
   group = "${aws_iam_group.dev.id}"
 
   /* RDS Full Access policy */
@@ -135,31 +140,33 @@ resource "aws_iam_group_policy" "dev_rds_fullaccess" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_role" "ec2_s3_fullaccess" {
-  name = "EC2-S3-Role"
+  name = "EC2S3FullAccessRole"
   description = "IAM Role for EC2 to access S3"
 
   assume_role_policy = <<EOF
 {
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Action": "sts:AssumeRole",
-    "Principal": {
-      "Service": "ec2.amazonaws.com"
-    },
-    "Effect": "Allow",
-    "Sid": ""
-  }
-]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
 }
 EOF
+
 }
 
 resource "aws_iam_role_policy" "ec2_s3_fullaccess" {
-  name = "EC2-S3-FullAccess"
+  name = "EC2S3FullAccessRolePolicy"
   role = "${aws_iam_role.ec2_s3_fullaccess.id}"
 
   /* S3 Full Access policy */
@@ -175,4 +182,5 @@ resource "aws_iam_role_policy" "ec2_s3_fullaccess" {
   ]
 }
 EOF
+
 }
